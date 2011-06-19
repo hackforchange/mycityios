@@ -10,8 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SBJson.h"
 
+#define kRowHeightNormal    44.0
+#define kRowHeightSubMenu   88.0
+
 @interface RootViewController ()
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(EMOptionsTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation RootViewController
@@ -20,6 +23,7 @@
 @synthesize sendBtn = _sendBtn;
 @synthesize cancelBtn = _cancelBtn;
 @synthesize headerView = _headerView;
+@synthesize subMenuCellIndexPath = _subMenuCellIndexPath;
 
 @synthesize locManager = _locManager;
 
@@ -73,14 +77,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-/*
- // Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	// Return YES for supported orientations.
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
- */
-
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -97,9 +93,10 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    EMOptionsTableViewCell *cell = (EMOptionsTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[EMOptionsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        [cell setDelegate:self];
     }
 
     // Configure the cell.
@@ -107,24 +104,25 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath == self.subMenuCellIndexPath) {
+        return kRowHeightSubMenu;
+    }
+    
+    return kRowHeightNormal;
 }
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-    // ...
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-	*/
+    //Show submenu for the cell tapped
+    EMOptionsTableViewCell *cell = (EMOptionsTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    [cell showSubMenu];
+    
+    //Update the cell height for this cell
+    self.subMenuCellIndexPath = indexPath;
+    [tableView beginUpdates];
+    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    [tableView endUpdates];
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,20 +146,38 @@
     if (_issuesArray) {
         [_issuesArray release];
     }
+    self.subMenuCellIndexPath = nil;
 }
 
 - (void)dealloc
 {
+    self.subMenuCellIndexPath = nil;
     [super dealloc];
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(EMOptionsTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *issue = [_issuesArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [issue objectForKey:@"title"];
     cell.detailTextLabel.text = [issue objectForKey:@"created_at"];
 }
 
+#pragma mark-
+#pragma mark EMOptionsTableViewCell delegate methods
+
+- (void)optionsTableViewCellSubMenuButtonsWasTapped:(EMOptionsTableViewCell *)optionsCell {
+    NSLog(@"SubMenu button tapped");
+}
+
+- (void)optionsTableViewCellDidHideSubMenu:(EMOptionsTableViewCell *)optionsCell {
+    
+    //If we are still the saved index path, nil it
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:optionsCell];
+    if (self.subMenuCellIndexPath == indexPath) {
+        self.subMenuCellIndexPath = nil;
+    }
+    
+}
 
 #pragma mark-
 #pragma mark Text view delegate methods

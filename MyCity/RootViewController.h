@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "EMOptionsTableViewCell.h"
 
-@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate> {
+@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, EMOptionsTableViewCellDelegate> {
     
     BOOL _issueHasText;
     
@@ -23,6 +24,8 @@
 @property (nonatomic, retain) IBOutlet UIView *headerView;
 
 @property (nonatomic, retain) CLLocationManager *locManager;
+
+@property (nonatomic, retain) NSIndexPath *subMenuCellIndexPath;
 
 - (IBAction)sendIssue;
 - (IBAction)cancelIssue;
