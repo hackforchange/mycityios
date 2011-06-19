@@ -27,6 +27,7 @@
 @synthesize cancelBtn = _cancelBtn;
 @synthesize headerView = _headerView;
 @synthesize cityLabel = _cityLabel;
+@synthesize categories = _categories;
 
 @synthesize locManager = _locManager;
 @synthesize geoCoder = _geoCoder;
@@ -263,8 +264,22 @@
         latitude = coord.latitude;
     }
     
+    NSUInteger category = [self.categories selectedSegmentIndex];
+    NSString *categoryString = nil;
+    switch (category) {
+        case 0:
+            categoryString = @"Maintenance";
+            break;
+        case 1:
+            categoryString = @"Transportation";
+            break;
+        default:
+            categoryString = @"Other";
+            break;
+    }
+    
     // Setup and start async download
-    NSString *body = [NSString stringWithFormat:@"issue[title]=%@&issue[longitude]=%f&issue[latitude]=%f", issueText, longitude, latitude];
+    NSString *body = [NSString stringWithFormat:@"issue[title]=%@&issue[tag]=%@&issue[longitude]=%f&issue[latitude]=%f", issueText, categoryString, longitude, latitude];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[body dataUsingEncoding:NSStringEncodingConversionAllowLossy]];

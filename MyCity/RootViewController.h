@@ -24,6 +24,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *cancelBtn;
 @property (nonatomic, retain) IBOutlet UIView *headerView;
 @property (nonatomic, retain) IBOutlet UILabel *cityLabel;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *categories;
 
 @property (nonatomic, retain) CLLocationManager *locManager;
 @property (nonatomic, retain) MKReverseGeocoder *geoCoder;

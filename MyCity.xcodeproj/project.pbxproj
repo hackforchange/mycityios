@@ -46,6 +46,7 @@
 		C820786513ADBAD800C4F9C9 /* cityLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C820786313ADBAD800C4F9C9 /* cityLogo@2x.png */; };
 		C820787713ADBFE300C4F9C9 /* Titling.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C820787613ADBFE300C4F9C9 /* Titling.ttf */; };
 		C820787913ADC0F300C4F9C9 /* Angelina.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C820787813ADC0F300C4F9C9 /* Angelina.ttf */; };
+		C8538AE513AE1A5900FE905E /* iconTransportation.png in Resources */ = {isa = PBXBuildFile; fileRef = C8538AE413AE1A5900FE905E /* iconTransportation.png */; };
 		C87467A513ADD2F300157C17 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87467A413ADD2F200157C17 /* MapKit.framework */; };
 		C87467A813ADD63E00157C17 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87467A713ADD63E00157C17 /* AddressBook.framework */; };
 		C87467AC13ADD8FA00157C17 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C87467AA13ADD8FA00157C17 /* LoginViewController.m */; };
@@ -54,6 +55,11 @@
 		C874680D13ADFEF900157C17 /* MyCityIcon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = C874680C13ADFEF900157C17 /* MyCityIcon114x114.png */; };
 		C874680F13ADFF1400157C17 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C874680E13ADFF1300157C17 /* Default@2x.png */; };
 		C874681113ADFF3F00157C17 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C874681013ADFF3F00157C17 /* Default.png */; };
+		C8B2978813AE1469007B6665 /* iconOther.png in Resources */ = {isa = PBXBuildFile; fileRef = C8B2978613AE1469007B6665 /* iconOther.png */; };
+		C8B2978913AE1469007B6665 /* iconOther@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8B2978713AE1469007B6665 /* iconOther@2x.png */; };
+		C8B8758713AE184800304870 /* iconMaintenance.png in Resources */ = {isa = PBXBuildFile; fileRef = C8B8758513AE184800304870 /* iconMaintenance.png */; };
+		C8B8758813AE184800304870 /* iconMaintenance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8B8758613AE184800304870 /* iconMaintenance@2x.png */; };
+		C8B8758D13AE1A1500304870 /* iconTransportation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8B8758B13AE1A1500304870 /* iconTransportation@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +124,7 @@
 		C820786313ADBAD800C4F9C9 /* cityLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cityLogo@2x.png"; sourceTree = "<group>"; };
 		C820787613ADBFE300C4F9C9 /* Titling.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Titling.ttf; sourceTree = "<group>"; };
 		C820787813ADC0F300C4F9C9 /* Angelina.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Angelina.ttf; sourceTree = "<group>"; };
+		C8538AE413AE1A5900FE905E /* iconTransportation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconTransportation.png; sourceTree = "<group>"; };
 		C87467A413ADD2F200157C17 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C87467A713ADD63E00157C17 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		C87467A913ADD8FA00157C17 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -127,6 +134,11 @@
 		C874680C13ADFEF900157C17 /* MyCityIcon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MyCityIcon114x114.png; sourceTree = "<group>"; };
 		C874680E13ADFF1300157C17 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C874681013ADFF3F00157C17 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C8B2978613AE1469007B6665 /* iconOther.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconOther.png; sourceTree = "<group>"; };
+		C8B2978713AE1469007B6665 /* iconOther@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconOther@2x.png"; sourceTree = "<group>"; };
+		C8B8758513AE184800304870 /* iconMaintenance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconMaintenance.png; sourceTree = "<group>"; };
+		C8B8758613AE184800304870 /* iconMaintenance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconMaintenance@2x.png"; sourceTree = "<group>"; };
+		C8B8758B13AE1A1500304870 /* iconTransportation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconTransportation@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +279,12 @@
 		C820783C13ADA33A00C4F9C9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C8538AE413AE1A5900FE905E /* iconTransportation.png */,
+				C8B8758B13AE1A1500304870 /* iconTransportation@2x.png */,
+				C8B8758513AE184800304870 /* iconMaintenance.png */,
+				C8B8758613AE184800304870 /* iconMaintenance@2x.png */,
+				C8B2978613AE1469007B6665 /* iconOther.png */,
+				C8B2978713AE1469007B6665 /* iconOther@2x.png */,
 				C820786213ADBAD800C4F9C9 /* cityLogo.png */,
 				C820786313ADBAD800C4F9C9 /* cityLogo@2x.png */,
 				C820784113ADA4C600C4F9C9 /* patternBg.png */,
@@ -357,6 +375,12 @@
 				C874680D13ADFEF900157C17 /* MyCityIcon114x114.png in Resources */,
 				C874680F13ADFF1400157C17 /* Default@2x.png in Resources */,
 				C874681113ADFF3F00157C17 /* Default.png in Resources */,
+				C8B2978813AE1469007B6665 /* iconOther.png in Resources */,
+				C8B2978913AE1469007B6665 /* iconOther@2x.png in Resources */,
+				C8B8758713AE184800304870 /* iconMaintenance.png in Resources */,
+				C8B8758813AE184800304870 /* iconMaintenance@2x.png in Resources */,
+				C8B8758D13AE1A1500304870 /* iconTransportation@2x.png in Resources */,
+				C8538AE513AE1A5900FE905E /* iconTransportation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
