@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <AddressBook/AddressBook.h>
 #import "SBJson.h"
 
 #define kRowHeightNormal    44.0
@@ -26,6 +27,7 @@
 @synthesize cityLabel = _cityLabel;
 
 @synthesize locManager = _locManager;
+@synthesize geoCoder = _geoCoder;
 
 - (void)viewDidLoad
 {
@@ -46,7 +48,7 @@
     
     UIFont *cityFont = [UIFont fontWithName:@"Futura" size:20.0];
     [self.cityLabel setFont:cityFont];
-    [self.cityLabel setText:@"San Francisco"];
+    [self.cityLabel setText:@"Locating city..."];
     
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
@@ -240,10 +242,44 @@
     [request release];
 }
 
+#pragma mark -
+#pragma mark Geolocation
+
 - (void)startLocationManager {
     self.locManager = [[[CLLocationManager alloc] init] autorelease];
+    [self.locManager setDelegate:self];
     [self.locManager startUpdatingLocation];
-    NSLog(@"Location: %@", [[self.locManager location] description]);
+}
+
+// this delegate is called when the app successfully finds your current location
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation 
+{
+    // this creates a MKReverseGeocoder to find a placemark using the found coordinates
+    if (self.geoCoder == nil) {
+        self.geoCoder = [[[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate] autorelease];
+        self.geoCoder.delegate = self;
+        [self.geoCoder start];
+    }
+}
+
+// this delegate method is called if an error occurs in locating your current location
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
+{
+    NSLog(@"locationManager:%@ didFailWithError:%@", manager, error);
+}
+// this delegate is called when the reverseGeocoder finds a placemark
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark
+{
+    MKPlacemark * myPlacemark = placemark;
+    // with the placemark you can now retrieve the city name
+    NSString *city = [myPlacemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+    [self.cityLabel setText:city];
+}
+
+// this delegate is called when the reversegeocoder fails to find a placemark
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error
+{
+    NSLog(@"reverseGeocoder:%@ didFailWithError:%@", geocoder, error);
 }
 
 #pragma mark -
@@ -297,7 +333,7 @@
     if ([jsonResult isKindOfClass:[NSDictionary class]]) {
         
         NSLog(@"JSON Results: %@", [jsonResult description]);
-        [_issuesArray addObject:jsonResult];
+        [_issuesArray insertObject:jsonResult atIndex:0];
         
     } else if ([jsonResult isKindOfClass:[NSArray class]]) {
 

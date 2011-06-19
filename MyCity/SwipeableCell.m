@@ -14,6 +14,20 @@
 @implementation SwipeableCell
 @synthesize text;
 @synthesize votes;
+@synthesize btnVote = _btnVote;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	
+    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
+		
+		self.btnVote = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.btnVote setTitle:@"Fix it!" forState:UIControlStateNormal];
+        [self.btnVote setFrame:CGRectMake(80.0, 10.0, 320.0 - 80.0*2, 57.0 - 10*2)];
+        [self.backView addSubview:self.btnVote];
+    }
+	
+    return self;
+}
 
 - (void)setVotes:(NSNumber *)aVote {
 	if (aVote != votes){
@@ -119,6 +133,8 @@
 - (void)dealloc {
 	
 	[text release];
+    [votes release];
+    [_btnVote release];
     [super dealloc];
 }
 

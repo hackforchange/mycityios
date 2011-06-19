@@ -47,6 +47,8 @@
 		C820786513ADBAD800C4F9C9 /* cityLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C820786313ADBAD800C4F9C9 /* cityLogo@2x.png */; };
 		C820787713ADBFE300C4F9C9 /* Titling.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C820787613ADBFE300C4F9C9 /* Titling.ttf */; };
 		C820787913ADC0F300C4F9C9 /* Angelina.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C820787813ADC0F300C4F9C9 /* Angelina.ttf */; };
+		C87467A513ADD2F300157C17 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87467A413ADD2F200157C17 /* MapKit.framework */; };
+		C87467A813ADD63E00157C17 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87467A713ADD63E00157C17 /* AddressBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +114,8 @@
 		C820786313ADBAD800C4F9C9 /* cityLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cityLogo@2x.png"; sourceTree = "<group>"; };
 		C820787613ADBFE300C4F9C9 /* Titling.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Titling.ttf; sourceTree = "<group>"; };
 		C820787813ADC0F300C4F9C9 /* Angelina.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Angelina.ttf; sourceTree = "<group>"; };
+		C87467A413ADD2F200157C17 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C87467A713ADD63E00157C17 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C87467A813ADD63E00157C17 /* AddressBook.framework in Frameworks */,
+				C87467A513ADD2F300157C17 /* MapKit.framework in Frameworks */,
 				C82077D713AD523200C4F9C9 /* CoreLocation.framework in Frameworks */,
 				C82077AD13AD48CA00C4F9C9 /* QuartzCore.framework in Frameworks */,
 				C820778813AD406800C4F9C9 /* UIKit.framework in Frameworks */,
@@ -151,6 +157,8 @@
 		C820778613AD406800C4F9C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C87467A713ADD63E00157C17 /* AddressBook.framework */,
+				C87467A413ADD2F200157C17 /* MapKit.framework */,
 				C82077D613AD523200C4F9C9 /* CoreLocation.framework */,
 				C82077AC13AD48CA00C4F9C9 /* QuartzCore.framework */,
 				C820778713AD406800C4F9C9 /* UIKit.framework */,

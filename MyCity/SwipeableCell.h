@@ -17,6 +17,7 @@
 
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSNumber * votes;
+@property (nonatomic, retain) UIButton *btnVote;
 
 - (void)drawShadowsWithHeight:(CGFloat)shadowHeight opacity:(CGFloat)opacity InRect:(CGRect)rect forContext:(CGContextRef)context;
 

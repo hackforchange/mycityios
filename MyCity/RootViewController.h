@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import "SwipeableCell.h"
 
-@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, TISwipeableTableViewDelegate> {
+@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, TISwipeableTableViewDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate> {
     
     BOOL _issueHasText;
     
@@ -25,6 +26,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *cityLabel;
 
 @property (nonatomic, retain) CLLocationManager *locManager;
+@property (nonatomic, retain) MKReverseGeocoder *geoCoder;
 
 - (IBAction)sendIssue;
 - (IBAction)cancelIssue;
