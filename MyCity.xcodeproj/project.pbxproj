@@ -49,6 +49,8 @@
 		C820787913ADC0F300C4F9C9 /* Angelina.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C820787813ADC0F300C4F9C9 /* Angelina.ttf */; };
 		C87467A513ADD2F300157C17 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87467A413ADD2F200157C17 /* MapKit.framework */; };
 		C87467A813ADD63E00157C17 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87467A713ADD63E00157C17 /* AddressBook.framework */; };
+		C87467AC13ADD8FA00157C17 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C87467AA13ADD8FA00157C17 /* LoginViewController.m */; };
+		C87467AD13ADD8FA00157C17 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87467AB13ADD8FA00157C17 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +118,9 @@
 		C820787813ADC0F300C4F9C9 /* Angelina.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Angelina.ttf; sourceTree = "<group>"; };
 		C87467A413ADD2F200157C17 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C87467A713ADD63E00157C17 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		C87467A913ADD8FA00157C17 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		C87467AA13ADD8FA00157C17 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C87467AB13ADD8FA00157C17 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +192,9 @@
 				C820780513AD57DB00C4F9C9 /* MCIssue.h */,
 				C820780613AD57DB00C4F9C9 /* MCIssue.m */,
 				C820782D13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib */,
+				C87467A913ADD8FA00157C17 /* LoginViewController.h */,
+				C87467AA13ADD8FA00157C17 /* LoginViewController.m */,
+				C87467AB13ADD8FA00157C17 /* LoginViewController.xib */,
 			);
 			path = MyCity;
 			sourceTree = "<group>";
@@ -336,6 +344,7 @@
 				C820787913ADC0F300C4F9C9 /* Angelina.ttf in Resources */,
 				C80F536213ADC5A60040519D /* sync.png in Resources */,
 				C80F536313ADC5A60040519D /* sync@2x.png in Resources */,
+				C87467AD13ADD8FA00157C17 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +374,7 @@
 				C820780713AD57DB00C4F9C9 /* MCIssue.m in Sources */,
 				C820783A13ADA21800C4F9C9 /* TISwipeableTableView.m in Sources */,
 				C820783B13ADA21800C4F9C9 /* SwipeableCell.m in Sources */,
+				C87467AC13ADD8FA00157C17 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

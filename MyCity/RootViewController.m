@@ -10,9 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AddressBook/AddressBook.h>
 #import "SBJson.h"
+#import "LoginViewController.h"
 
 #define kRowHeightNormal    44.0
 #define kRowHeightSubMenu   88.0
+#define kUserTokenKey       @"UserTokenKey"
 
 @interface RootViewController ()
 - (void)configureCell:(SwipeableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -73,6 +75,14 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    NSString *userToken = [[NSUserDefaults standardUserDefaults] stringForKey:kUserTokenKey];
+    if (userToken == nil && !_loginInitiallyShown) {
+        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self presentModalViewController:login animated:YES];
+        _loginInitiallyShown = YES;
+        [login release];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated

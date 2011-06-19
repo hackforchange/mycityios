@@ -14,7 +14,7 @@
 @interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, TISwipeableTableViewDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate> {
     
     BOOL _issueHasText;
-    
+    BOOL _loginInitiallyShown;
     NSMutableArray *_issuesArray;
     
 }
