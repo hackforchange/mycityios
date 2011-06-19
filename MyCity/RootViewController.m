@@ -14,7 +14,7 @@
 #define kRowHeightSubMenu   88.0
 
 @interface RootViewController ()
-- (void)configureCell:(EMOptionsTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(SwipeableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation RootViewController
@@ -38,6 +38,11 @@
     [addButton release];
     
     [self.tableView setTableHeaderView:self.headerView];
+    
+    //Customize it
+    [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"patternBg"]]];
+    [(TISwipeableTableView*)self.tableView setSwipeDelegate:self];
+    [self.tableView setDelaysContentTouches:NO];
     
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
@@ -93,10 +98,11 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    EMOptionsTableViewCell *cell = (EMOptionsTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    SwipeableCell *cell = (SwipeableCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[EMOptionsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-        [cell setDelegate:self];
+        // Load the top-level objects from the custom cell XIB.
+        cell = [[[SwipeableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+
     }
 
     // Configure the cell.
@@ -104,25 +110,19 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath == self.subMenuCellIndexPath) {
-        return kRowHeightSubMenu;
-    }
-    
-    return kRowHeightNormal;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Show submenu for the cell tapped
-    EMOptionsTableViewCell *cell = (EMOptionsTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
-    [cell showSubMenu];
-    
-    //Update the cell height for this cell
-    self.subMenuCellIndexPath = indexPath;
-    [tableView beginUpdates];
-    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
-    [tableView endUpdates];
+    [(TISwipeableTableView*)tableView showBackForCellAtIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSwipeCellAtIndexPath:(NSIndexPath *)indexPath {
+	
+	NSLog(@"Did swipe");
+}
+
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+	
+	[(TISwipeableTableView*)self.tableView hideVisibleBackView:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -155,27 +155,22 @@
     [super dealloc];
 }
 
-- (void)configureCell:(EMOptionsTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(SwipeableCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *issue = [_issuesArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [issue objectForKey:@"title"];
-    cell.detailTextLabel.text = [issue objectForKey:@"created_at"];
+    [cell setText:[issue objectForKey:@"title"]];
+    //[cell setBackgroundColor:[UIColor clearColor]];
+    //[cell.contentView setBackgroundColor:[UIColor clearColor]];
 }
 
 #pragma mark-
-#pragma mark EMOptionsTableViewCell delegate methods
+#pragma mark UITableViewCell delegate methods
 
-- (void)optionsTableViewCellSubMenuButtonsWasTapped:(EMOptionsTableViewCell *)optionsCell {
+- (void)optionsTableViewCellSubMenuButtonsWasTapped:(UITableViewCell *)optionsCell {
     NSLog(@"SubMenu button tapped");
 }
 
-- (void)optionsTableViewCellDidHideSubMenu:(EMOptionsTableViewCell *)optionsCell {
-    
-    //If we are still the saved index path, nil it
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:optionsCell];
-    if (self.subMenuCellIndexPath == indexPath) {
-        self.subMenuCellIndexPath = nil;
-    }
+- (void)optionsTableViewCellDidHideSubMenu:(UITableViewCell *)optionsCell {
     
 }
 

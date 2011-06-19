@@ -32,9 +32,12 @@
 		C82077FD13AD572400C4F9C9 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = C82077F013AD572400C4F9C9 /* SBJsonUTF8Stream.m */; };
 		C82077FE13AD572400C4F9C9 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = C82077F213AD572400C4F9C9 /* SBJsonWriter.m */; };
 		C820780713AD57DB00C4F9C9 /* MCIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = C820780613AD57DB00C4F9C9 /* MCIssue.m */; };
-		C820782713AD776800C4F9C9 /* EMTableCellSubMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C820782613AD776800C4F9C9 /* EMTableCellSubMenuView.m */; };
-		C820782A13AD7A1B00C4F9C9 /* EMOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C820782913AD7A1A00C4F9C9 /* EMOptionsTableViewCell.m */; };
 		C820782C13AD8A9400C4F9C9 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C820782B13AD8A9400C4F9C9 /* RootViewController.xib */; };
+		C820782E13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C820782D13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib */; };
+		C820783A13ADA21800C4F9C9 /* TISwipeableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C820783713ADA21800C4F9C9 /* TISwipeableTableView.m */; };
+		C820783B13ADA21800C4F9C9 /* SwipeableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C820783913ADA21800C4F9C9 /* SwipeableCell.m */; };
+		C820783E13ADA35300C4F9C9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C820783D13ADA35300C4F9C9 /* Default.png */; };
+		C820784213ADA4C600C4F9C9 /* patternBg.png in Resources */ = {isa = PBXBuildFile; fileRef = C820784113ADA4C600C4F9C9 /* patternBg.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,11 +86,14 @@
 		C82077F213AD572400C4F9C9 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		C820780513AD57DB00C4F9C9 /* MCIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCIssue.h; sourceTree = "<group>"; };
 		C820780613AD57DB00C4F9C9 /* MCIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCIssue.m; sourceTree = "<group>"; };
-		C820782513AD776700C4F9C9 /* EMTableCellSubMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMTableCellSubMenuView.h; sourceTree = "<group>"; };
-		C820782613AD776800C4F9C9 /* EMTableCellSubMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTableCellSubMenuView.m; sourceTree = "<group>"; };
-		C820782813AD7A1A00C4F9C9 /* EMOptionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMOptionsTableViewCell.h; sourceTree = "<group>"; };
-		C820782913AD7A1A00C4F9C9 /* EMOptionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMOptionsTableViewCell.m; sourceTree = "<group>"; };
 		C820782B13AD8A9400C4F9C9 /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
+		C820782D13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMOptionsTableViewCell.xib; sourceTree = "<group>"; };
+		C820783613ADA21800C4F9C9 /* TISwipeableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TISwipeableTableView.h; sourceTree = "<group>"; };
+		C820783713ADA21800C4F9C9 /* TISwipeableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TISwipeableTableView.m; sourceTree = "<group>"; };
+		C820783813ADA21800C4F9C9 /* SwipeableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeableCell.h; sourceTree = "<group>"; };
+		C820783913ADA21800C4F9C9 /* SwipeableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeableCell.m; sourceTree = "<group>"; };
+		C820783D13ADA35300C4F9C9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C820784113ADA4C600C4F9C9 /* patternBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patternBg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,8 @@
 		C820778F13AD406800C4F9C9 /* MyCity */ = {
 			isa = PBXGroup;
 			children = (
+				C820783C13ADA33A00C4F9C9 /* Images */,
+				C820783513ADA1F200C4F9C9 /* SwipableTableView stuff */,
 				C82077D813AD571000C4F9C9 /* SBJSON */,
 				C820779813AD406800C4F9C9 /* MyCityAppDelegate.h */,
 				C820779913AD406800C4F9C9 /* MyCityAppDelegate.m */,
@@ -151,10 +159,7 @@
 				C820779013AD406800C4F9C9 /* Supporting Files */,
 				C820780513AD57DB00C4F9C9 /* MCIssue.h */,
 				C820780613AD57DB00C4F9C9 /* MCIssue.m */,
-				C820782813AD7A1A00C4F9C9 /* EMOptionsTableViewCell.h */,
-				C820782913AD7A1A00C4F9C9 /* EMOptionsTableViewCell.m */,
-				C820782513AD776700C4F9C9 /* EMTableCellSubMenuView.h */,
-				C820782613AD776800C4F9C9 /* EMTableCellSubMenuView.m */,
+				C820782D13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib */,
 			);
 			path = MyCity;
 			sourceTree = "<group>";
@@ -201,6 +206,26 @@
 				C82077F213AD572400C4F9C9 /* SBJsonWriter.m */,
 			);
 			name = SBJSON;
+			sourceTree = "<group>";
+		};
+		C820783513ADA1F200C4F9C9 /* SwipableTableView stuff */ = {
+			isa = PBXGroup;
+			children = (
+				C820783613ADA21800C4F9C9 /* TISwipeableTableView.h */,
+				C820783713ADA21800C4F9C9 /* TISwipeableTableView.m */,
+				C820783813ADA21800C4F9C9 /* SwipeableCell.h */,
+				C820783913ADA21800C4F9C9 /* SwipeableCell.m */,
+			);
+			name = "SwipableTableView stuff";
+			sourceTree = "<group>";
+		};
+		C820783C13ADA33A00C4F9C9 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C820784113ADA4C600C4F9C9 /* patternBg.png */,
+				C820783D13ADA35300C4F9C9 /* Default.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +281,9 @@
 				C820779413AD406800C4F9C9 /* InfoPlist.strings in Resources */,
 				C82077A013AD406800C4F9C9 /* MainWindow.xib in Resources */,
 				C820782C13AD8A9400C4F9C9 /* RootViewController.xib in Resources */,
+				C820782E13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib in Resources */,
+				C820783E13ADA35300C4F9C9 /* Default.png in Resources */,
+				C820784213ADA4C600C4F9C9 /* patternBg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,8 +311,8 @@
 				C82077FD13AD572400C4F9C9 /* SBJsonUTF8Stream.m in Sources */,
 				C82077FE13AD572400C4F9C9 /* SBJsonWriter.m in Sources */,
 				C820780713AD57DB00C4F9C9 /* MCIssue.m in Sources */,
-				C820782713AD776800C4F9C9 /* EMTableCellSubMenuView.m in Sources */,
-				C820782A13AD7A1B00C4F9C9 /* EMOptionsTableViewCell.m in Sources */,
+				C820783A13ADA21800C4F9C9 /* TISwipeableTableView.m in Sources */,
+				C820783B13ADA21800C4F9C9 /* SwipeableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "EMOptionsTableViewCell.h"
+#import "SwipeableCell.h"
 
-@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, EMOptionsTableViewCellDelegate> {
+@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, TISwipeableTableViewDelegate> {
     
     BOOL _issueHasText;
     
