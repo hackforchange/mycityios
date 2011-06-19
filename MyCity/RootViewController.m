@@ -253,8 +253,18 @@
     // Create NSURL string from formatted string
     NSURL *url = [NSURL URLWithString:urlString];
     
+    //Get the location
+    CLLocation *currentLocation = [self.locManager location];
+    double longitude = 0;
+    double latitude = 0;
+    if (currentLocation) {
+        CLLocationCoordinate2D coord = currentLocation.coordinate;
+        longitude = coord.longitude;
+        latitude = coord.latitude;
+    }
+    
     // Setup and start async download
-    NSString *body = [NSString stringWithFormat:@"issue[title]=%@", issueText];
+    NSString *body = [NSString stringWithFormat:@"issue[title]=%@&issue[longitude]=%f&issue[latitude]=%f", issueText, longitude, latitude];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[body dataUsingEncoding:NSStringEncodingConversionAllowLossy]];
@@ -392,11 +402,9 @@
             NSUInteger index = [_issuesArray indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
                                     NSString *issueID = [obj valueForKey:@"_id"];
                 if ([issueID isEqualToString:issue_id]) {
-                    //We want to manually update the vote count, to avoid having to call the server again
-                    NSNumber *votesCount = [obj valueForKey:@"votes_count"];
-                    NSUInteger votes = [votesCount integerValue];
-                    votes++;
-                    [obj setValue:[NSNumber numberWithInteger:votes] forKey:@"votes_count"];
+                    //We want to manually update the vote count
+                    NSNumber *votesTotal = [jsonResult valueForKey:@"vote_count"];
+                    [obj setValue:votesTotal forKey:@"votes_count"];
                     *stop = YES;
                     return YES;
                 }

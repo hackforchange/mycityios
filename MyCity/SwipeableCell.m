@@ -24,6 +24,8 @@
 		self.btnVote = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.btnVote addTarget:self action:@selector(voteBtnTapped) forControlEvents:UIControlEventTouchUpInside];
         [self.btnVote setTitle:@"Fix it!" forState:UIControlStateNormal];
+        [self.btnVote setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [self.btnVote.titleLabel setFont:[UIFont fontWithName:@"Futura" size:15]];
         [self.btnVote setFrame:CGRectMake(80.0, 10.0, 320.0 - 80.0*2, 57.0 - 10*2)];
         [self.backView addSubview:self.btnVote];
     }

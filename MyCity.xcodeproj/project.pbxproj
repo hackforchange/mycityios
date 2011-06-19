@@ -38,7 +38,6 @@
 		C820782E13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C820782D13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib */; };
 		C820783A13ADA21800C4F9C9 /* TISwipeableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C820783713ADA21800C4F9C9 /* TISwipeableTableView.m */; };
 		C820783B13ADA21800C4F9C9 /* SwipeableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C820783913ADA21800C4F9C9 /* SwipeableCell.m */; };
-		C820783E13ADA35300C4F9C9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C820783D13ADA35300C4F9C9 /* Default.png */; };
 		C820784213ADA4C600C4F9C9 /* patternBg.png in Resources */ = {isa = PBXBuildFile; fileRef = C820784113ADA4C600C4F9C9 /* patternBg.png */; };
 		C820784613ADAD3500C4F9C9 /* patternBgGray.png in Resources */ = {isa = PBXBuildFile; fileRef = C820784513ADAD3400C4F9C9 /* patternBgGray.png */; };
 		C820786013ADBA4E00C4F9C9 /* reportNote.png in Resources */ = {isa = PBXBuildFile; fileRef = C820785E13ADBA4E00C4F9C9 /* reportNote.png */; };
@@ -51,6 +50,10 @@
 		C87467A813ADD63E00157C17 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87467A713ADD63E00157C17 /* AddressBook.framework */; };
 		C87467AC13ADD8FA00157C17 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C87467AA13ADD8FA00157C17 /* LoginViewController.m */; };
 		C87467AD13ADD8FA00157C17 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87467AB13ADD8FA00157C17 /* LoginViewController.xib */; };
+		C874680B13ADFEED00157C17 /* MyCityIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = C874680A13ADFEED00157C17 /* MyCityIcon57x57.png */; };
+		C874680D13ADFEF900157C17 /* MyCityIcon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = C874680C13ADFEF900157C17 /* MyCityIcon114x114.png */; };
+		C874680F13ADFF1400157C17 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C874680E13ADFF1300157C17 /* Default@2x.png */; };
+		C874681113ADFF3F00157C17 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C874681013ADFF3F00157C17 /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,7 +110,6 @@
 		C820783713ADA21800C4F9C9 /* TISwipeableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TISwipeableTableView.m; sourceTree = "<group>"; };
 		C820783813ADA21800C4F9C9 /* SwipeableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeableCell.h; sourceTree = "<group>"; };
 		C820783913ADA21800C4F9C9 /* SwipeableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeableCell.m; sourceTree = "<group>"; };
-		C820783D13ADA35300C4F9C9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		C820784113ADA4C600C4F9C9 /* patternBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patternBg.png; sourceTree = "<group>"; };
 		C820784513ADAD3400C4F9C9 /* patternBgGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patternBgGray.png; sourceTree = "<group>"; };
 		C820785E13ADBA4E00C4F9C9 /* reportNote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reportNote.png; sourceTree = "<group>"; };
@@ -121,6 +123,10 @@
 		C87467A913ADD8FA00157C17 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C87467AA13ADD8FA00157C17 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C87467AB13ADD8FA00157C17 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		C874680A13ADFEED00157C17 /* MyCityIcon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MyCityIcon57x57.png; sourceTree = "<group>"; };
+		C874680C13ADFEF900157C17 /* MyCityIcon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MyCityIcon114x114.png; sourceTree = "<group>"; };
+		C874680E13ADFF1300157C17 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C874681013ADFF3F00157C17 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +151,10 @@
 		C820777813AD406800C4F9C9 = {
 			isa = PBXGroup;
 			children = (
+				C874681013ADFF3F00157C17 /* Default.png */,
+				C874680E13ADFF1300157C17 /* Default@2x.png */,
+				C874680C13ADFEF900157C17 /* MyCityIcon114x114.png */,
+				C874680A13ADFEED00157C17 /* MyCityIcon57x57.png */,
 				C820778F13AD406800C4F9C9 /* MyCity */,
 				C820778613AD406800C4F9C9 /* Frameworks */,
 				C820778413AD406800C4F9C9 /* Products */,
@@ -265,7 +275,6 @@
 				C820785F13ADBA4E00C4F9C9 /* reportNote@2x.png */,
 				C80F536013ADC5A60040519D /* sync.png */,
 				C80F536113ADC5A60040519D /* sync@2x.png */,
-				C820783D13ADA35300C4F9C9 /* Default.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -333,7 +342,6 @@
 				C82077A013AD406800C4F9C9 /* MainWindow.xib in Resources */,
 				C820782C13AD8A9400C4F9C9 /* RootViewController.xib in Resources */,
 				C820782E13AD8B2100C4F9C9 /* EMOptionsTableViewCell.xib in Resources */,
-				C820783E13ADA35300C4F9C9 /* Default.png in Resources */,
 				C820784213ADA4C600C4F9C9 /* patternBg.png in Resources */,
 				C820784613ADAD3500C4F9C9 /* patternBgGray.png in Resources */,
 				C820786013ADBA4E00C4F9C9 /* reportNote.png in Resources */,
@@ -345,6 +353,10 @@
 				C80F536213ADC5A60040519D /* sync.png in Resources */,
 				C80F536313ADC5A60040519D /* sync@2x.png in Resources */,
 				C87467AD13ADD8FA00157C17 /* LoginViewController.xib in Resources */,
+				C874680B13ADFEED00157C17 /* MyCityIcon57x57.png in Resources */,
+				C874680D13ADFEF900157C17 /* MyCityIcon114x114.png in Resources */,
+				C874680F13ADFF1400157C17 /* Default@2x.png in Resources */,
+				C874681113ADFF3F00157C17 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
