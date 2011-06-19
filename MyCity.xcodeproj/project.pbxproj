@@ -34,6 +34,7 @@
 		C820780713AD57DB00C4F9C9 /* MCIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = C820780613AD57DB00C4F9C9 /* MCIssue.m */; };
 		C820782713AD776800C4F9C9 /* EMTableCellSubMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C820782613AD776800C4F9C9 /* EMTableCellSubMenuView.m */; };
 		C820782A13AD7A1B00C4F9C9 /* EMOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C820782913AD7A1A00C4F9C9 /* EMOptionsTableViewCell.m */; };
+		C820782C13AD8A9400C4F9C9 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C820782B13AD8A9400C4F9C9 /* RootViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		C820782613AD776800C4F9C9 /* EMTableCellSubMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTableCellSubMenuView.m; sourceTree = "<group>"; };
 		C820782813AD7A1A00C4F9C9 /* EMOptionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMOptionsTableViewCell.h; sourceTree = "<group>"; };
 		C820782913AD7A1A00C4F9C9 /* EMOptionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMOptionsTableViewCell.m; sourceTree = "<group>"; };
+		C820782B13AD8A9400C4F9C9 /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				C820779813AD406800C4F9C9 /* MyCityAppDelegate.h */,
 				C820779913AD406800C4F9C9 /* MyCityAppDelegate.m */,
 				C820779E13AD406800C4F9C9 /* MainWindow.xib */,
+				C820782B13AD8A9400C4F9C9 /* RootViewController.xib */,
 				C82077A113AD406800C4F9C9 /* RootViewController.h */,
 				C82077A213AD406800C4F9C9 /* RootViewController.m */,
 				C820779B13AD406800C4F9C9 /* MyCity.xcdatamodeld */,
@@ -252,6 +255,7 @@
 			files = (
 				C820779413AD406800C4F9C9 /* InfoPlist.strings in Resources */,
 				C82077A013AD406800C4F9C9 /* MainWindow.xib in Resources */,
+				C820782C13AD8A9400C4F9C9 /* RootViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
