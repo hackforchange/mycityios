@@ -7,6 +7,8 @@
 //
 
 #import "RootViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "SBJson.h"
 
 @interface RootViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -14,9 +16,12 @@
 
 @implementation RootViewController
 
-@synthesize fetchedResultsController=__fetchedResultsController;
+@synthesize textView = _textView;
+@synthesize sendBtn = _sendBtn;
+@synthesize cancelBtn = _cancelBtn;
+@synthesize headerView = _headerView;
 
-@synthesize managedObjectContext=__managedObjectContext;
+@synthesize locManager = _locManager;
 
 - (void)viewDidLoad
 {
@@ -27,11 +32,27 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
     self.navigationItem.rightBarButtonItem = addButton;
     [addButton release];
+    
+    [self.tableView setTableHeaderView:self.headerView];
+    
+    [self.textView.layer setBorderWidth:1.0];
+    [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
+    [self.textView.layer setCornerRadius:10.0];
+    
+    [self registerForKeyboardNotifications];
+    
+    [self startLocationManager];
+    
+    if (_issuesArray == nil) {
+        _issuesArray = [[NSMutableArray alloc] initWithCapacity:0];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self getIssues];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -42,11 +63,14 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*
@@ -60,13 +84,12 @@
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return [_issuesArray count];
 }
 
 // Customize the appearance of table view cells.
@@ -76,7 +99,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
 
     // Configure the cell.
@@ -92,35 +115,6 @@
     return YES;
 }
 */
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        // Delete the managed object for the given index path
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
-        // Save the context.
-        NSError *error = nil;
-        if (![context save:&error])
-        {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }   
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // The table view should not be re-orderable.
-    return NO;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -147,162 +141,170 @@
 
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
+    self.textView = nil;
+    self.sendBtn = nil;
+    self.cancelBtn = nil;
+    self.headerView = nil;
+    if (_issuesArray) {
+        [_issuesArray release];
+    }
 }
 
 - (void)dealloc
 {
-    [__fetchedResultsController release];
-    [__managedObjectContext release];
     [super dealloc];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+    NSDictionary *issue = [_issuesArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [issue objectForKey:@"title"];
+    cell.detailTextLabel.text = [issue objectForKey:@"created_at"];
 }
 
-- (void)insertNewObject
-{
-    // Create a new instance of the entity managed by the fetched results controller.
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error])
-    {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+
+#pragma mark-
+#pragma mark Text view delegate methods
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if (!_issueHasText) {
+        [textView setText:@""];
+        [textView setTextColor:[UIColor blackColor]];
     }
 }
 
-#pragma mark - Fetched results controller
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    _issueHasText = [textView hasText];
+    if (![textView hasText]) {
+        [textView setText:@"Report an issue"];
+        [textView setTextColor:[UIColor lightGrayColor]];
+    }
+}
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (__fetchedResultsController != nil)
-    {
-        return __fetchedResultsController;
+#pragma mark-
+#pragma mark Custom methods 
+
+- (IBAction)sendIssue {
+    if ([_textView canResignFirstResponder]) {
+        [_textView resignFirstResponder];
     }
     
-    /*
-     Set up the fetched results controller.
-    */
-    // Create the fetch request for the entity.
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
+    // Build the string
+    NSString *urlString = 
+    [NSString stringWithFormat:@"http://mycity.heroku.com/api/issues"];
     
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
+    // Create NSURL string from formatted string
+    NSURL *url = [NSURL URLWithString:urlString];
     
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-    [aFetchedResultsController release];
-    [fetchRequest release];
-    [sortDescriptor release];
-    [sortDescriptors release];
+    // Setup and start async download
+    NSString *body = [NSString stringWithFormat:@"issue[title]=%@", [_textView text]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSStringEncodingConversionAllowLossy]];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [connection release];
+    [request release];
+}
 
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error])
-        {
-	    /*
-	     Replace this implementation with code to handle the error appropriately.
+- (IBAction)cancelIssue {
+    if ([_textView canResignFirstResponder]) {
+        [_textView resignFirstResponder];
+    }
+}
 
-	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-	     */
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
+- (IBAction)getIssues {
+    // Build the string
+    NSString *urlString = 
+    [NSString stringWithFormat:@"http://mycity.heroku.com/api/issues"];
     
-    return __fetchedResultsController;
-}    
+    // Create NSURL string from formatted string
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // Setup and start async download
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [connection release];
+    [request release];
+}
 
-#pragma mark - Fetched results controller delegate
+- (void)startLocationManager {
+    self.locManager = [[[CLLocationManager alloc] init] autorelease];
+    [self.locManager startUpdatingLocation];
+    NSLog(@"Location: %@", [[self.locManager location] description]);
+}
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+#pragma mark -
+#pragma mark Keyboard notifications
+
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications {
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardWillShow:)
+												 name:UIKeyboardWillShowNotification object:nil];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardWillHide:)
+												 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification*)aNotification {
+    //Show the cancel btn to get rid of the keyboard
+    [UIView animateWithDuration:0.3
+                     animations:^ {
+                         [_cancelBtn setAlpha:1.0];
+                     }];
+}
+
+- (void)keyboardWillHide:(NSNotification*)aNotification {
+    //Show the cancel btn to get rid of the keyboard
+    [UIView animateWithDuration:0.3
+                     animations:^ {
+                         [_cancelBtn setAlpha:0.0];
+                     }];
+}
+
+#pragma mark -
+#pragma mark NSURLConnection delegate
+
+- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
+    
+    NSLog(@"Connection did receive response %@", [response description]);
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data 
 {
+    // Store incoming data into a string
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    // Create a dictionary from the JSON string
+    id jsonResult = [jsonString JSONValue];
+    
+    //POST will return an NSDictionary, GET will return an array
+    if ([jsonResult isKindOfClass:[NSDictionary class]]) {
+        
+        NSLog(@"JSON Results: %@", [jsonResult description]);
+        [_issuesArray addObject:jsonResult];
+        
+    } else if ([jsonResult isKindOfClass:[NSArray class]]) {
+
+        
+        [_issuesArray removeAllObjects];
+        [_issuesArray addObjectsFromArray:jsonResult];
+        
+    }
+    
     [self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type)
-    {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    UITableView *tableView = self.tableView;
-    
-    switch(type)
-    {
-            
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
+    
+    //Get the keys and values
+    //NSLog(@"JSON Title %@", [results objectForKey:@"title"]);
+
 }
 
-/*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    // In the simplest, most efficient, case, reload the table view.
-    [self.tableView reloadData];
+- (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error {  
+    NSLog(@"Connection did fail with error %@", [error description]);
 }
- */
 
 @end

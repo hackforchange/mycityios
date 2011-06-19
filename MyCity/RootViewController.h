@@ -7,14 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-#import <CoreData/CoreData.h>
-
-@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate> {
-
+@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate> {
+    
+    BOOL _issueHasText;
+    
+    NSMutableArray *_issuesArray;
+    
 }
 
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) IBOutlet UITextView *textView;
+@property (nonatomic, retain) IBOutlet UIButton *sendBtn;
+@property (nonatomic, retain) IBOutlet UIButton *cancelBtn;
+@property (nonatomic, retain) IBOutlet UIView *headerView;
+
+@property (nonatomic, retain) CLLocationManager *locManager;
+
+- (IBAction)sendIssue;
+- (IBAction)cancelIssue;
+
+- (IBAction)getIssues;
+
+- (void)registerForKeyboardNotifications;
+
+- (void)startLocationManager;
 
 @end
