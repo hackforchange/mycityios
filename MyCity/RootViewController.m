@@ -118,7 +118,7 @@
     if (cell == nil) {
         // Load the top-level objects from the custom cell XIB.
         cell = [[[SwipeableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-
+        [cell setDelegate:self];
     }
 
     // Configure the cell.
@@ -134,6 +134,42 @@
 - (void)tableView:(UITableView *)tableView didSwipeCellAtIndexPath:(NSIndexPath *)indexPath {
 	
 	NSLog(@"Did swipe");
+}
+
+- (void)swipeableCellFixItButtonWasPressed:(SwipeableCell *)cell {
+    
+    [(TISwipeableTableView*)self.tableView hideVisibleBackView:YES];
+    
+    //The fix it button was pressed for a cell, time to vote if the user has logged in
+    NSString *userToken = [[NSUserDefaults standardUserDefaults] stringForKey:kUserTokenKey];
+    if (userToken == nil) {
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Log in" 
+                                                             message:@"You need to be logged in to vote to fix existing issues"
+                                                            delegate:nil 
+                                                   cancelButtonTitle:@"OK" 
+                                                   otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+        return;
+    }
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSDictionary *issue = [_issuesArray objectAtIndex:indexPath.row];
+    NSString *issueID = [issue objectForKey:@"_id"];
+    
+    // Build the string
+    //NOTE: We need to pass the auth token in the URL
+    NSString *urlString = [NSString stringWithFormat:@"http://mycity.heroku.com/api/issues/%@/votes?auth_token=%@", issueID, userToken];
+    
+    // Create NSURL string from formatted string
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // Setup and start async download
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [connection release];
+    [request release];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
@@ -178,17 +214,6 @@
 }
 
 #pragma mark-
-#pragma mark UITableViewCell delegate methods
-
-- (void)optionsTableViewCellSubMenuButtonsWasTapped:(UITableViewCell *)optionsCell {
-    NSLog(@"SubMenu button tapped");
-}
-
-- (void)optionsTableViewCellDidHideSubMenu:(UITableViewCell *)optionsCell {
-    
-}
-
-#pragma mark-
 #pragma mark Text view delegate methods
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
@@ -210,6 +235,13 @@
 #pragma mark Custom methods 
 
 - (IBAction)sendIssue {
+    
+    //Save the issue text and remove it from the textview
+    NSString *issueText = [NSString stringWithString:_textView.text];
+    
+    [_textView setText:@"Report an issue"];
+    [_textView setTextColor:[UIColor lightGrayColor]];
+    
     if ([_textView canResignFirstResponder]) {
         [_textView resignFirstResponder];
     }
@@ -222,7 +254,7 @@
     NSURL *url = [NSURL URLWithString:urlString];
     
     // Setup and start async download
-    NSString *body = [NSString stringWithFormat:@"issue[title]=%@", [_textView text]];
+    NSString *body = [NSString stringWithFormat:@"issue[title]=%@", issueText];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[body dataUsingEncoding:NSStringEncodingConversionAllowLossy]];
@@ -343,7 +375,39 @@
     if ([jsonResult isKindOfClass:[NSDictionary class]]) {
         
         NSLog(@"JSON Results: %@", [jsonResult description]);
-        [_issuesArray insertObject:jsonResult atIndex:0];
+        
+        //If we returned an issue, it will have a title value
+        if ([jsonResult valueForKey:@"title"]) {
+            
+            [_issuesArray insertObject:jsonResult atIndex:0];
+            
+            [self.tableView beginUpdates];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView endUpdates];
+            
+        } else {
+            //Else, it is a vote
+            //Find the issue associated with it
+            NSString *issue_id = [jsonResult valueForKey:@"issue_id"];
+            NSUInteger index = [_issuesArray indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                                    NSString *issueID = [obj valueForKey:@"_id"];
+                if ([issueID isEqualToString:issue_id]) {
+                    //We want to manually update the vote count, to avoid having to call the server again
+                    NSNumber *votesCount = [obj valueForKey:@"votes_count"];
+                    NSUInteger votes = [votesCount integerValue];
+                    votes++;
+                    [obj setValue:[NSNumber numberWithInteger:votes] forKey:@"votes_count"];
+                    *stop = YES;
+                    return YES;
+                }
+                return NO;
+                                }];
+            
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewScrollPositionNone];
+            [self.tableView endUpdates];
+        }
+        
         
     } else if ([jsonResult isKindOfClass:[NSArray class]]) {
 
@@ -351,14 +415,10 @@
         [_issuesArray removeAllObjects];
         [_issuesArray addObjectsFromArray:jsonResult];
         
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
     }
-    
-    [self.tableView beginUpdates];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
-    
-    //Get the keys and values
-    //NSLog(@"JSON Title %@", [results objectForKey:@"title"]);
 
 }
 

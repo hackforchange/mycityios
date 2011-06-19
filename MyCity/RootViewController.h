@@ -11,7 +11,7 @@
 #import <MapKit/MapKit.h>
 #import "SwipeableCell.h"
 
-@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, TISwipeableTableViewDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate> {
+@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITextViewDelegate, TISwipeableTableViewDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate, SwipeableCellDelegate> {
     
     BOOL _issueHasText;
     BOOL _loginInitiallyShown;

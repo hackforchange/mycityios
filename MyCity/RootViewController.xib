@@ -130,8 +130,8 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont" id="133372875">
-							<string key="NSName">Helvetica-Bold</string>
+						<object class="NSFont" key="IBUIFont" id="79356101">
+							<string key="NSName">Futura-Medium</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
@@ -139,8 +139,9 @@
 						<string key="IBUINormalTitle">Send Issue</string>
 						<reference key="IBUIHighlightedTitleColor" ref="615189056"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC41AA</bytes>
+							<reference key="NSCustomColorSpace" ref="731837225"/>
 						</object>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="486501248">
 							<int key="NSColorSpace">3</int>
@@ -159,20 +160,21 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="133372875"/>
+						<reference key="IBUIFont" ref="79356101"/>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Cancel</string>
 						<reference key="IBUIHighlightedTitleColor" ref="615189056"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC41AA</bytes>
+							<reference key="NSCustomColorSpace" ref="731837225"/>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="486501248"/>
 					</object>
 					<object class="IBUIButton" id="1070748141">
 						<reference key="NSNextResponder" ref="176000010"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 190}, {40, 40}}</string>
+						<string key="NSFrame">{{20, 194}, {35, 35}}</string>
 						<reference key="NSSuperview" ref="176000010"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="638645323"/>
@@ -180,7 +182,11 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="133372875"/>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">15</double>
+							<int key="NSfFlags">16</int>
+						</object>
 						<reference key="IBUIHighlightedTitleColor" ref="615189056"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>

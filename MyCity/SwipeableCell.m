@@ -15,18 +15,26 @@
 @synthesize text;
 @synthesize votes;
 @synthesize btnVote = _btnVote;
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
 		
 		self.btnVote = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.btnVote addTarget:self action:@selector(voteBtnTapped) forControlEvents:UIControlEventTouchUpInside];
         [self.btnVote setTitle:@"Fix it!" forState:UIControlStateNormal];
         [self.btnVote setFrame:CGRectMake(80.0, 10.0, 320.0 - 80.0*2, 57.0 - 10*2)];
         [self.backView addSubview:self.btnVote];
     }
 	
     return self;
+}
+
+- (void)voteBtnTapped {
+    if ([self.delegate respondsToSelector:@selector(swipeableCellFixItButtonWasPressed:)]) {
+        [self.delegate swipeableCellFixItButtonWasPressed:self];
+    }
 }
 
 - (void)setVotes:(NSNumber *)aVote {
