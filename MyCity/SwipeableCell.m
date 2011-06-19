@@ -8,8 +8,20 @@
 
 #import "SwipeableCell.h"
 
+#define kVoteSquareSize 40.0
+#define kVoteStringBoxHeight 14.0
+
 @implementation SwipeableCell
 @synthesize text;
+@synthesize votes;
+
+- (void)setVotes:(NSNumber *)aVote {
+	if (aVote != votes){
+		[votes release];
+		votes = [aVote retain];
+		[self setNeedsDisplay];
+	}
+}
 
 - (void)setText:(NSString *)aString {
 	
@@ -24,8 +36,9 @@
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
-	UIColor * backgroundColour = [UIColor whiteColor];
+	UIColor * backgroundColour = [UIColor colorWithPatternImage:[UIImage imageNamed:@"patternBg"]];
 	UIColor * textColour = [UIColor blackColor];
+    UIFont * textFont = [UIFont fontWithName:@"Futura" size:16.0];
 	
 	if (self.isSelected) {
 		backgroundColour = [UIColor colorWithRed:0.189 green:0.495 blue:0.903 alpha:1];
@@ -36,14 +49,41 @@
 	CGContextFillRect(context, rect);
 	
 	[textColour set];
+    
+    CGFloat leftTextOffset = 60.0;
+    CGFloat rightTextOffset = 20.0;
+    CGFloat topOffset = 5.0;
+    
+    //Draw the voting square
+    CGRect voteFrame = CGRectMake((leftTextOffset - kVoteSquareSize)/2, (rect.size.height - kVoteSquareSize)/2, kVoteSquareSize, kVoteSquareSize);
+    UIColor *voteColor = [UIColor darkGrayColor];
+    [voteColor set];
+    CGContextFillRect(context, voteFrame);
+    
+    //Draw the voting string box
+    CGRect voteStringBox = CGRectMake(voteFrame.origin.x, 
+                                      CGRectGetMaxY(voteFrame) - kVoteStringBoxHeight, 
+                                      voteFrame.size.width,
+                                      kVoteStringBoxHeight);
+    [[UIColor colorWithRed:99.0/255.0 green:168.0/255.0 blue:32.0/255.0 alpha:1.0] set];
+    CGContextFillRect(context, voteStringBox);
+    
+    //Draw the voting number
+    NSString *voteNumber = [NSString stringWithFormat:@"%d",[votes integerValue]];
+    [[UIColor whiteColor] set];
+    CGSize numberSize = [voteNumber sizeWithFont:textFont];
+    CGPoint numberPoint = CGPointMake(CGRectGetMaxX(voteFrame) - CGRectGetWidth(voteFrame)/2 - numberSize.width/2, 
+                                      CGRectGetMaxY(voteFrame) - kVoteStringBoxHeight - ((CGRectGetHeight(voteFrame)-kVoteStringBoxHeight)/2) - numberSize.height/2);
+    [voteNumber drawAtPoint:numberPoint withFont:textFont];
 	
-	UIFont * textFont = [UIFont boldSystemFontOfSize:22];
-	
-	CGSize textSize = [text sizeWithFont:textFont constrainedToSize:rect.size];
-	[text drawInRect:CGRectMake((rect.size.width / 2) - (textSize.width / 2), 
-								(rect.size.height / 2) - (textSize.height / 2),
+	[textColour set];
+	CGSize textSize = [text sizeWithFont:textFont constrainedToSize:CGSizeMake(rect.size.width - leftTextOffset - rightTextOffset, rect.size.height - topOffset*2)];
+	[text drawInRect:CGRectMake(leftTextOffset, 
+								topOffset + ((rect.size.height - topOffset*2 - textSize.height)/2),
 								textSize.width, textSize.height)
-			withFont:textFont];
+            withFont:textFont
+       lineBreakMode:UILineBreakModeCharacterWrap
+           alignment:UITextAlignmentLeft];
 	
 	if (self.isSelected){
 		[self drawShadowsWithHeight:7 opacity:0.1 InRect:rect forContext:context];
@@ -53,7 +93,7 @@
 - (void)drawBackView:(CGRect)rect {
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	[[UIImage imageNamed:@"meshpattern.png"] drawAsPatternInRect:rect];
+	[[UIImage imageNamed:@"patternBgGray.png"] drawAsPatternInRect:rect];
 	[self drawShadowsWithHeight:10 opacity:0.3 InRect:rect forContext:context];
 }
 

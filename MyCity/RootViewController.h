@@ -22,10 +22,9 @@
 @property (nonatomic, retain) IBOutlet UIButton *sendBtn;
 @property (nonatomic, retain) IBOutlet UIButton *cancelBtn;
 @property (nonatomic, retain) IBOutlet UIView *headerView;
+@property (nonatomic, retain) IBOutlet UILabel *cityLabel;
 
 @property (nonatomic, retain) CLLocationManager *locManager;
-
-@property (nonatomic, retain) NSIndexPath *subMenuCellIndexPath;
 
 - (IBAction)sendIssue;
 - (IBAction)cancelIssue;

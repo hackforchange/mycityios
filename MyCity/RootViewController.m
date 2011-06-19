@@ -23,7 +23,7 @@
 @synthesize sendBtn = _sendBtn;
 @synthesize cancelBtn = _cancelBtn;
 @synthesize headerView = _headerView;
-@synthesize subMenuCellIndexPath = _subMenuCellIndexPath;
+@synthesize cityLabel = _cityLabel;
 
 @synthesize locManager = _locManager;
 
@@ -44,8 +44,12 @@
     [(TISwipeableTableView*)self.tableView setSwipeDelegate:self];
     [self.tableView setDelaysContentTouches:NO];
     
+    UIFont *cityFont = [UIFont fontWithName:@"Futura" size:20.0];
+    [self.cityLabel setFont:cityFont];
+    [self.cityLabel setText:@"San Francisco"];
+    
     [self.textView.layer setBorderWidth:1.0];
-    [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
+    [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [self.textView.layer setCornerRadius:10.0];
     
     [self registerForKeyboardNotifications];
@@ -146,12 +150,11 @@
     if (_issuesArray) {
         [_issuesArray release];
     }
-    self.subMenuCellIndexPath = nil;
+    self.cityLabel = nil;
 }
 
 - (void)dealloc
 {
-    self.subMenuCellIndexPath = nil;
     [super dealloc];
 }
 
@@ -159,8 +162,7 @@
 {
     NSDictionary *issue = [_issuesArray objectAtIndex:indexPath.row];
     [cell setText:[issue objectForKey:@"title"]];
-    //[cell setBackgroundColor:[UIColor clearColor]];
-    //[cell.contentView setBackgroundColor:[UIColor clearColor]];
+    [cell setVotes:[issue objectForKey:@"votes_count"]];
 }
 
 #pragma mark-

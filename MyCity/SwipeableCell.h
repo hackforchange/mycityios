@@ -12,10 +12,11 @@
 @interface SwipeableCell : TISwipeableTableViewCell {
 	
 	NSString * text;
-
+    NSNumber * votes;
 }
 
 @property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) NSNumber * votes;
 
 - (void)drawShadowsWithHeight:(CGFloat)shadowHeight opacity:(CGFloat)opacity InRect:(CGRect)rect forContext:(CGContextRef)context;
 
